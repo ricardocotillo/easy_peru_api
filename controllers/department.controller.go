@@ -6,12 +6,9 @@ import (
 	"net/http"
 
 	"cotillo.tech/inei_api/models"
-	"gorm.io/gorm"
 )
 
-type DepartamentController struct {
-	DB *gorm.DB
-}
+type DepartamentController Controller
 
 func (dc DepartamentController) Index(w http.ResponseWriter, r *http.Request) {
 	var departments []models.Departament

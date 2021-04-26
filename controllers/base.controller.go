@@ -3,14 +3,12 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
+
+	"gorm.io/gorm"
 )
 
-type Controller interface {
-	index()
-	create()
-	show()
-	update()
-	destroy()
+type Controller struct {
+	DB *gorm.DB
 }
 
 func httpBadRequest(msg string, w http.ResponseWriter) {
