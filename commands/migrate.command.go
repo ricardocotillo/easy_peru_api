@@ -7,5 +7,5 @@ import (
 
 func migrate() {
 	db := database.InitDB()
-	db.AutoMigrate(&models.Departament{}, &models.EconomicActivity{}, &models.PBI{})
+	db.AutoMigrate(&models.Departament{}, &models.EconomicActivity{}, &models.Product{})
 }
