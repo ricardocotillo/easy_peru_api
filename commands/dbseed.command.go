@@ -8,6 +8,7 @@ import (
 
 	"cotillo.tech/inei_api/database"
 	"cotillo.tech/inei_api/models"
+	"gorm.io/gorm"
 )
 
 func dbseed() {
@@ -23,7 +24,21 @@ func dbseed() {
 
 	basedir, _ := os.Getwd()
 
-	f, _ := ioutil.ReadFile(basedir + "/data/constante_soles.json")
+	fcs, _ := ioutil.ReadFile(basedir + "/data/constante_soles.json")
+	saveFileToDB(fcs, "miles_de_soles", "constante", db)
+	fcp, _ := ioutil.ReadFile(basedir + "/data/constante_porcentual.json")
+	saveFileToDB(fcp, "porcentual", "constante", db)
+	fcvp, _ := ioutil.ReadFile(basedir + "/data/constante_variacion_porcentual.json")
+	saveFileToDB(fcvp, "variacion_porcentual", "constante", db)
+	fcs, _ = ioutil.ReadFile(basedir + "/data/corriente_soles.json")
+	saveFileToDB(fcs, "miles_de_soles", "corriente", db)
+	fcp, _ = ioutil.ReadFile(basedir + "/data/corriente_porcentual.json")
+	saveFileToDB(fcp, "porcentual", "corriente", db)
+	fcvp, _ = ioutil.ReadFile(basedir + "/data/corriente_variacion_porcentual.json")
+	saveFileToDB(fcvp, "variacion_porcentual", "corriente", db)
+}
+
+func saveFileToDB(f []byte, st string, vt string, db *gorm.DB) {
 	var result map[string]interface{}
 	json.Unmarshal(f, &result)
 	deps := result["departamentos"].([]interface{})
@@ -40,7 +55,7 @@ func dbseed() {
 				am := a.(map[string]interface{})
 				ac := models.EconomicActivity{}
 				db.Where(&models.EconomicActivity{Name: am["nombre"].(string)}).Find(&ac)
-				p := models.Product{Year: ym["año"].(string), Value: am["valor"].(float64), Structure: "miles_de_soles", ValueType: "constante", DepartamentID: dep.ID, EconomicActivityID: ac.ID}
+				p := models.Product{Year: ym["año"].(string), Value: am["valor"].(float64), Structure: st, ValueType: vt, DepartamentID: dep.ID, EconomicActivityID: ac.ID}
 				result := db.Create(&p)
 				if result.Error != nil {
 					fmt.Println(am["nombre"])
