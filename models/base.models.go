@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Departament struct {
+type Department struct {
 	gorm.Model
 	Name     string    `json:"name"`
 	Products []Product `json:"products"`
@@ -16,10 +16,10 @@ type EconomicActivity struct {
 
 type Product struct {
 	gorm.Model
-	Year               string `json:"year"`
-	DepartamentID      uint
-	Departament        Departament `json:"department"`
-	EconomicActivityID uint
+	Year               string           `json:"year"`
+	DepartmentID       uint             `json:"-"`
+	Department         Department       `json:"department"`
+	EconomicActivityID uint             `json:"-"`
 	EconomicActivity   EconomicActivity `json:"economicActivity"`
 	Value              float64          `json:"value"`
 	Structure          string           `json:"structure"`

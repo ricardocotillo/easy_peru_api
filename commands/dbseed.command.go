@@ -14,7 +14,7 @@ import (
 func dbseed() {
 	db := database.InitDB()
 	for _, n := range departments {
-		d := models.Departament{Name: n}
+		d := models.Department{Name: n}
 		db.Create(&d)
 	}
 	for _, n := range activities {
@@ -45,8 +45,8 @@ func saveFileToDB(f []byte, st string, vt string, db *gorm.DB) {
 	for _, d := range deps {
 		dm := d.(map[string]interface{})
 		dn := dm["nombre"]
-		var dep models.Departament
-		db.Where(&models.Departament{Name: dn.(string)}).Find(&dep)
+		var dep models.Department
+		db.Where(&models.Department{Name: dn.(string)}).Find(&dep)
 		ys := dm["años"].([]interface{})
 		for _, y := range ys {
 			ym := y.(map[string]interface{})
@@ -55,7 +55,7 @@ func saveFileToDB(f []byte, st string, vt string, db *gorm.DB) {
 				am := a.(map[string]interface{})
 				ac := models.EconomicActivity{}
 				db.Where(&models.EconomicActivity{Name: am["nombre"].(string)}).Find(&ac)
-				p := models.Product{Year: ym["año"].(string), Value: am["valor"].(float64), Structure: st, ValueType: vt, DepartamentID: dep.ID, EconomicActivityID: ac.ID}
+				p := models.Product{Year: ym["año"].(string), Value: am["valor"].(float64), Structure: st, ValueType: vt, DepartmentID: dep.ID, EconomicActivityID: ac.ID}
 				result := db.Create(&p)
 				if result.Error != nil {
 					fmt.Println(am["nombre"])

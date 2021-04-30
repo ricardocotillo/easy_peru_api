@@ -11,7 +11,7 @@ import (
 type DepartamentController Controller
 
 func (dc DepartamentController) Index(w http.ResponseWriter, r *http.Request) {
-	var departments []models.Departament
+	var departments []models.Department
 	result := dc.DB.Find(&departments)
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -24,7 +24,7 @@ func (dc DepartamentController) Create(w http.ResponseWriter, r *http.Request) {
 		httpBadRequest("Nombre es requerido", w)
 		return
 	}
-	var d models.Departament
+	var d models.Department
 	err = json.Unmarshal(b, &d)
 	if err != nil {
 		httpBadRequest("Sucedió un error", w)
