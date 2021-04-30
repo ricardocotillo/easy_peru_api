@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"cotillo.tech/inei_api/models"
 )
@@ -12,7 +14,11 @@ func (pc ProductController) Index(w http.ResponseWriter, r *http.Request) {
 	params := r.URL.Query()
 	st := params.Get("structure")
 	vt := params.Get("valueType")
+	y := params.Get("year")
+	d, _ := strconv.Atoi(params.Get("department"))
+	ea, _ := (strconv.Atoi(params.Get("economicActivity")))
+	fmt.Println(d)
 	var ps []models.Product
-	pc.DB.Where(&models.Product{Structure: st, ValueType: vt, Year: "2019"}).Find(&ps)
+	pc.DB.Joins("EconomicActivity").Joins("Departament").Where(&models.Product{Structure: st, ValueType: vt, Year: y, EconomicActivityID: uint(ea), DepartamentID: uint(d)}).Find(&ps)
 	jsonResponse(w, ps, http.StatusOK)
 }
