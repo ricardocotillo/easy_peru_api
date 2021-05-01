@@ -3,25 +3,25 @@ package models
 import "gorm.io/gorm"
 
 type Department struct {
-	gorm.Model
-	Name     string    `json:"name"`
-	Products []Product `json:"products"`
+	gorm.Model `json:"-"`
+	Name       string    `json:"name"`
+	Products   []Product `json:"products"`
 }
 
 type EconomicActivity struct {
-	gorm.Model
-	Name     string    `json:"name"`
-	Products []Product `json:"products"`
+	gorm.Model `json:"-"`
+	Name       string    `json:"name"`
+	Products   []Product `json:"products"`
 }
 
 type Product struct {
-	gorm.Model
+	gorm.Model         `json:"-"`
 	Year               string           `json:"year"`
 	DepartmentID       uint             `json:"-"`
-	Department         Department       `json:"department"`
+	Department         Department       `json:"-"`
 	EconomicActivityID uint             `json:"-"`
-	EconomicActivity   EconomicActivity `json:"economicActivity"`
+	EconomicActivity   EconomicActivity `json:"-"`
 	Value              float64          `json:"value"`
-	Structure          string           `json:"structure"`
-	ValueType          string           `json:"valueType"`
+	Structure          string           `json:"-"`
+	ValueType          string           `json:"-"`
 }

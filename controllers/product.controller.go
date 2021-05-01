@@ -17,6 +17,6 @@ func (pc ProductController) Index(w http.ResponseWriter, r *http.Request) {
 	d, _ := strconv.Atoi(params.Get("department"))
 	ea, _ := (strconv.Atoi(params.Get("economicActivity")))
 	var ps []models.Product
-	pc.DB.Joins("EconomicActivity").Joins("Department").Where(&models.Product{Structure: st, ValueType: vt, Year: y, EconomicActivityID: uint(ea), DepartmentID: uint(d)}).Find(&ps)
+	pc.DB.Where(&models.Product{Structure: st, ValueType: vt, Year: y, EconomicActivityID: uint(ea), DepartmentID: uint(d)}).Find(&ps)
 	jsonResponse(w, ps, http.StatusOK)
 }
