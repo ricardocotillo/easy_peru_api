@@ -15,13 +15,13 @@ type EconomicActivity struct {
 }
 
 type Product struct {
-	gorm.Model         `json:"-"`
-	Year               string           `json:"year"`
-	DepartmentID       uint             `json:"-"`
-	Department         Department       `json:"-"`
-	EconomicActivityID uint             `json:"-"`
-	EconomicActivity   EconomicActivity `json:"-"`
-	Value              float64          `json:"value"`
-	Structure          string           `json:"-"`
-	ValueType          string           `json:"-"`
+	gorm.Model
+	Year               string
+	DepartmentID       uint
+	Department         Department
+	EconomicActivityID uint
+	EconomicActivity   EconomicActivity
+	Value              float64
+	Structure          string
+	ValueType          string
 }
