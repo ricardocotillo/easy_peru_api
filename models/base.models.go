@@ -3,9 +3,9 @@ package models
 import "gorm.io/gorm"
 
 type Department struct {
-	gorm.Model `json:"-"`
-	Name       string    `json:"name"`
-	Products   []Product `json:"products"`
+	gorm.Model
+	Name     string    `json:"name"`
+	Products []Product `json:"products"`
 }
 
 type EconomicActivity struct {

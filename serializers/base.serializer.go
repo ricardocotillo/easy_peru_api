@@ -17,3 +17,13 @@ type ProductBySerializer struct {
 	EconomicActivityID uint                    `json:"-"`
 	EconomicActivity   models.EconomicActivity `json:"economicActivity"`
 }
+
+type DepartmentSerializer struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
+}
+
+type EconomicActivitySerializer struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
+}

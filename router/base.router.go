@@ -12,8 +12,9 @@ func InitRouter(db *gorm.DB) *mux.Router {
 	r.Use(middlewares.CorsMiddleware)
 	dc := controllers.DepartamentController{DB: db}
 	pc := controllers.ProductController{DB: db}
+	eac := controllers.EconomicActivityController{DB: db}
 	r.HandleFunc("/departments/", dc.Index).Methods("GET")
-	r.HandleFunc("/departments/", dc.Create).Methods("POST")
 	r.HandleFunc("/products/", pc.Index).Methods("GET")
+	r.HandleFunc("/economic_activities/", eac.Index).Methods("GET")
 	return r
 }
