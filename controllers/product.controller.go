@@ -19,11 +19,11 @@ func (pc ProductController) Index(w http.ResponseWriter, r *http.Request) {
 	ea, _ := (strconv.Atoi(params.Get("economicActivity")))
 	if y != "" || d > 0 || ea > 0 {
 		var ps []serializers.ProductBySerializer
-		pc.DB.Table("products").Joins("Department").Joins("EconomicActivity").Where(&models.Product{Structure: st, ValueType: vt, Year: y, EconomicActivityID: uint(ea), DepartmentID: uint(d)}).Find(&ps)
+		pc.DB.Model(models.Product{}).Joins("Department").Joins("EconomicActivity").Where(&models.Product{Structure: st, ValueType: vt, Year: y, EconomicActivityID: uint(ea), DepartmentID: uint(d)}).Find(&ps)
 		jsonResponse(w, ps, http.StatusOK)
 		return
 	}
 	var ps []serializers.ProductAggregateSerializer
-	pc.DB.Table("products").Where(&models.Product{Structure: st, ValueType: vt, Year: y, EconomicActivityID: uint(ea), DepartmentID: uint(d)}).Find(&ps)
+	pc.DB.Model(models.Product{}).Where(&models.Product{Structure: st, ValueType: vt, Year: y, EconomicActivityID: uint(ea), DepartmentID: uint(d)}).Find(&ps)
 	jsonResponse(w, ps, http.StatusOK)
 }
